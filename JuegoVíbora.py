@@ -19,6 +19,12 @@ food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
+colorList = ['gray', 'blue', 'black', 'yellow', 'purple']
+snakeColor = choice(colorList)
+foodColor = choice(colorList)
+
+while snakeColor == foodColor:
+    foodColor = choice(colorList)
 
 def change(x, y):
     "Change snake direction."
@@ -31,6 +37,7 @@ def inside(head):
 
 
 def move():
+    global snakeColor, foodColor
     "Move snake forward one segment."
     head = snake[-1].copy()
     head.move(aim)
@@ -64,11 +71,11 @@ def move():
         snake.pop(0)
 
     clear()
-
+    
     for body in snake:
-        square(body.x, body.y, 9, 'black')
-
-    square(food.x, food.y, 9, 'green')
+        square(body.x, body.y, 9, snakeColor)
+        
+    square(food.x, food.y, 9, foodColor)
     update()
     ontimer(move, 100)
 
